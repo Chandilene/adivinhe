@@ -56,4 +56,54 @@ export const WORDS: Challenge[] = [
     word: "O AUTO DA COMPADECIDA",
     tip: "As aventuras de Joao Grilo e Chico no sertao da Paraiba",
   },
+  {
+    id: 12,
+    word: "O REI LEAO",
+    tip: "Um filhote de leao que precisa assumir seu lugar como rei",
+  },
+  {
+    id: 13,
+    word: "VINGADORES",
+    tip: "Os herois mais poderosos da Terra se unem contra uma ameaca",
+  },
+  {
+    id: 14,
+    word: "TOY STORY",
+    tip: "Brinquedos que ganham vida quando os humanos nao estao por perto",
+  },
+  {
+    id: 15,
+    word: "O SENHOR DOS ANEIS",
+    tip: "Uma jornada para destruir um anel maligno em uma terra media",
+  },
+  {
+    id: 16,
+    word: "HARRY POTTER",
+    tip: "Um garoto descobre que e um bruxo e vai para uma escola de magia",
+  },
+  {
+    id: 17,
+    word: "O PALHACO",
+    tip: "Filme nacional sobre um homem que trabalha no circo e busca sua identidade",
+  },
+  {
+    id: 18,
+    word: "MINHA MAE E UMA PECA",
+    tip: "Comedia brasileira sobre as peripecias de Dona Herminia",
+  },
+  {
+    id: 19,
+    word: "JURASSIC PARK",
+    tip: "Um parque de diversoes com dinossauros trazidos de volta a vida",
+  },
+  {
+    id: 20,
+    word: "CENTRAL DO BRASIL",
+    tip: "Uma mulher escreve cartas para analfabetos em uma estacao de trem",
+  },
+  {
+    id: 21,
+    word: "COMO TREINAR O SEU DRAGAO",
+    tip: "Um jovem viking faz amizade com uma criatura que deveria caçar",
+  },
 ];
