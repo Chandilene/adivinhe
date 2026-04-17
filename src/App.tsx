@@ -8,6 +8,7 @@ import { Tip } from "./components/Tip";
 import { Letter } from "./components/Letters";
 import { Header } from "./components/Header";
 import { LettersUsed, type LettersUsedProps } from "./components/LettersUsed";
+import { Alert, type AlertOption } from "./components/Alert";
 
 export default function App() {
   const [score, setScore] = useState(0);
@@ -16,13 +17,18 @@ export default function App() {
   const [lettersUsed, setLettersUsed] = useState<LettersUsedProps[]>([]);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [shake, setShake] = useState(false);
+  const [alertOption, setAlertOption] = useState<AlertOption>({
+    type: "sucess",
+    message: "",
+    isOpen: false,
+  });
 
   const ATTEMPTS = 3;
 
   const totalLettersToGuess = challenge?.word.replace(/\s/g, "").length || 0;
 
   function handleRestartGame() {
-    const isConfirm = window.confirm("Voce tem certeza que deseja reiniciar?");
+    const isConfirm = window.confirm("Você tem certeza que deseja reiniciar?");
     if (isConfirm) {
       startGame();
     }
@@ -41,13 +47,31 @@ export default function App() {
     setLettersUsed([]);
   }
 
+  function closeAlert(timeout: number = 3000) {
+    setTimeout(() => {
+      setAlertOption({
+        isOpen: false,
+        type: "sucess",
+        message: "",
+      });
+    }, timeout);
+  }
+
   function handleConfirm() {
     if (!challenge) {
       return;
     }
 
     if (!letter.trim()) {
-      return alert("Digite uma letra!");
+      setAlertOption({
+        isOpen: true,
+        type: "warning",
+        message: "Digite uma letra!",
+      });
+
+      closeAlert();
+
+      return;
     }
 
     const value = letter.toUpperCase();
@@ -57,7 +81,15 @@ export default function App() {
 
     if (exists) {
       setLetter("");
-      return alert("Voce ja tentou essa letra!");
+      setAlertOption({
+        isOpen: true,
+        type: "warning",
+        message: "Voce já tentou essa letra!",
+      });
+
+      closeAlert();
+
+      return;
     }
 
     const hits = challenge.word
@@ -84,8 +116,14 @@ export default function App() {
     }
   }
 
-  function endGame(message: string) {
-    alert(message);
+  function endGame(message: string, type: "sucess" | "warning" | "error") {
+    setAlertOption({
+      isOpen: true,
+      type,
+      message,
+    });
+
+    closeAlert(8000);
     startGame();
   }
 
@@ -100,13 +138,16 @@ export default function App() {
 
     setTimeout(() => {
       if (score === totalLettersToGuess && totalLettersToGuess > 0) {
-        return endGame("Parabéns! Você descobriu o filme!");
+        return endGame(
+          `Parabéns! Você descobriu o filme! ${challenge.word}`,
+          "sucess",
+        );
       }
 
       const attemptLimit = totalLettersToGuess + ATTEMPTS;
 
       if (lettersUsed.length === attemptLimit) {
-        return endGame("Que pena voce usou todas as tentativas!");
+        return endGame("Que pena voce usou todas as tentativas!", "error");
       }
     }, 500);
   }, [score, lettersUsed.length]);
@@ -155,6 +196,10 @@ export default function App() {
         </div>
 
         <LettersUsed data={lettersUsed} />
+
+        {alertOption.isOpen && (
+          <Alert type={alertOption.type} message={alertOption.message} />
+        )}
       </main>
     </div>
   );

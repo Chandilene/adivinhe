@@ -1,0 +1,31 @@
+.alertOverlay {
+  height: 100dvh;
+  width: 100vw;
+  background-color: #0000003f;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+}
+
+.alert {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 50px 30px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.sucess {
+  color: rgb(117, 173, 117);
+}
+
+.warning {
+  color: rgb(173, 118, 40);
+}
+
+.error {
+  color: rgb(173, 117, 117);
+}
