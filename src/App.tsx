@@ -18,6 +18,8 @@ export default function App() {
 
   const ATTEMPTS = 3;
 
+  const totalLettersToGuess = challenge?.word.replace(/\s/g, "").length || 0;
+
   function handleRestartGame() {
     const isConfirm = window.confirm("Voce tem certeza que deseja reiniciar?");
     if (isConfirm) {
@@ -54,7 +56,7 @@ export default function App() {
 
     if (exists) {
       setLetter("");
-      return alert("Voce ja tentouu essa letra!");
+      return alert("Voce ja tentou essa letra!");
     }
 
     const hits = challenge.word
@@ -67,6 +69,10 @@ export default function App() {
     const currentScore = score + hits;
 
     setLettersUsed((prevState) => [...prevState, { value, correct }]);
+
+    if (correct) {
+      setScore((prev) => prev + hits);
+    }
 
     setScore(currentScore);
     setLetter("");
@@ -87,11 +93,11 @@ export default function App() {
     }
 
     setTimeout(() => {
-      if (score === challenge.word.length) {
-        return endGame("Parabens voce descobriu a palavra");
+      if (score === totalLettersToGuess && totalLettersToGuess > 0) {
+        return endGame("Parabéns! Você descobriu o filme!");
       }
 
-      const attemptLimit = challenge.word.length + ATTEMPTS;
+      const attemptLimit = totalLettersToGuess + ATTEMPTS;
 
       if (lettersUsed.length === attemptLimit) {
         return endGame("Que pena voce usou todas as tentativas!");
